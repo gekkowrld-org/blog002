@@ -36,7 +36,16 @@
       text-decoration: none;
       text-shadow: 0 0 5px rgba(104,182,255,0.5);
     }
-
+    li, ul, ol{
+      list-style-type: none;
+      list-style: none;
+    }
+    li::before, ul::before, ol::before{
+      content: '>>';
+    }
+    li::after, ul::after, ul::after{
+      content: '<<';
+    }
   </style>
 </head>
 <body>
