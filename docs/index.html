@@ -13,16 +13,18 @@
     const docsFolder = "docs";
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${docsFolder}`;
     const fileList = document.getElementById("fileList");
-    
+
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
         data.forEach(item => {
           if (item.type === "file" && item.name.endsWith(".md")) {
+            const fileName = item.name.slice(0, -3);
+            const fileLink = `https://${repoOwner}.github.io/${repoName}/${fileName}`;
             const li = document.createElement("li");
             const a = document.createElement("a");
-            a.textContent = item.name;
-            a.href = item.html_url;
+            a.textContent = fileName;
+            a.href = fileLink;
             li.appendChild(a);
             fileList.appendChild(li);
           }
