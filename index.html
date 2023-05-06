@@ -1,11 +1,31 @@
-<?php
-$dir    = './docs';
-$files = scandir($dir);
-echo '<ul>';
-foreach ($files as $file) {
-  if ($file != '.' && $file != '..') {
-    echo '<li><a href="./docs/'.$file.'">'.$file.'</a></li>';
-  }
-}
-echo '</ul>';
-?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File List</title>
+  </head>
+  <body>
+    <h1>File List</h1>
+    <ul id="file-list"></ul>
+
+    <script>
+      fetch('/docs/')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const links = doc.querySelectorAll('a');
+          const fileList = document.getElementById('file-list');
+          
+          links.forEach(link => {
+            const listItem = document.createElement('li');
+            const anchor = document.createElement('a');
+            anchor.href = '/docs/' + link.textContent;
+            anchor.textContent = link.textContent;
+            listItem.appendChild(anchor);
+            fileList.appendChild(listItem);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>
