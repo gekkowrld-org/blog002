@@ -7,7 +7,7 @@
 on:
   push:
     branches:
-      - master
+      - main
 
 # Step 4: Add a job to the workflow that will build and deploy your GitHub Pages site. For example:
 
