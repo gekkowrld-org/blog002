@@ -1,0 +1,11 @@
+<?php
+$dir    = './docs';
+$files = scandir($dir);
+echo '<ul>';
+foreach ($files as $file) {
+  if ($file != '.' && $file != '..') {
+    echo '<li><a href="./docs/'.$file.'">'.$file.'</a></li>';
+  }
+}
+echo '</ul>';
+?>
