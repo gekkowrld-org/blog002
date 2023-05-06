@@ -6,4 +6,4 @@ This is a version control
 
 # Github
 
-This is a website that hosts
+This is a website that hosts the
