@@ -1,0 +1,9 @@
+# Production configuration settings
+# -------------------------------
+
+# Site settings
+url: https://gekkowrld-org.github.io/blog002
+baseurl: "" # or the path of your site if it's hosted at a subdirectory
+
+# Build settings
+destination: ./docs/_site
