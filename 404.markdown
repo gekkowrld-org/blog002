@@ -1,7 +1,0 @@
----
-permalink: /404.md
----
-
-# 404
-
-**Oops! The page you are looking for cannot be found.** Please go to [Gekko Wrld](https://github.com/gekkowrld) for some guidance!
