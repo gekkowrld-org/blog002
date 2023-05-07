@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Topics</title>
+  <link rel="shortcut icon" href="https://github.com/codetrybe.png" type="image/x-icon">
+  <title>Git and Github</title>
   <style>
     body{
       font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
@@ -44,44 +45,38 @@
       content: '>>  ';
       color: #b5e853;
     }
+	ul:empty::after{
+		content: 'Nothing for now, check in later' ;
+	}
   </style>
 </head>
 <body>
-  <h1>Topics Discussed in this Repository</h1>
-  <ul id="fileList"></ul>
+  <h1>The following topics are discussed:</h1>
+  <ul id="fileList" data-link="https://github.com/codetrybe/"></ul>
   <script>
-const repoOwner = "codetrybe";
-const repoName = "git-and-github";
-const docsFolder = "docs";
-const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${docsFolder}`;
-const fileList = document.getElementById("fileList");
+    const repoOwner = "codetrybe";
+    const repoName = "git-and-github";
+    const docsFolder = "docs";
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${docsFolder}`;
+    const fileList = document.getElementById("fileList");
 
-fetch(apiUrl)
-  .then(response => response.json())
-  .then(data => {
-    data.forEach(item => {
-      if (item.type === "file" && item.name.endsWith(".md")) {
-        const fileName = item.name.slice(0, -3);
-        const fileLink = `https://${repoOwner}.github.io/${repoName}/${fileName}`;
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-
-        // Fetch the markdown file and use the first h1 tag or # as the link text
-        fetch(item.download_url)
-          .then(response => response.text())
-          .then(markdown => {
-            const linkText = markdown.match(/^# (.+)/m)?.[1] || fileName;
-            a.textContent = linkText;
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(item => {
+          if (item.type === "file" && item.name.endsWith(".md")) {
+            const fileName = item.name.slice(0, -3);
+            const fileLink = `https://${repoOwner}.github.io/${repoName}/${fileName}`;
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.textContent = fileName;
             a.href = fileLink;
             li.appendChild(a);
             fileList.appendChild(li);
-          })
-          .catch(error => console.error(error));
-      }
-    });
-  })
-  .catch(error => console.error(error));
-
+          }
+        });
+      })
+      .catch(error => console.error(error));
   </script>
 </body>
 </html>
