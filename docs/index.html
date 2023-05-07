@@ -50,29 +50,38 @@
   <h1>Topics Discussed in this Repository</h1>
   <ul id="fileList"></ul>
   <script>
-    const repoOwner = "gekkowrld-org";
-    const repoName = "blog002";
-    const docsFolder = "docs";
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${docsFolder}`;
-    const fileList = document.getElementById("fileList");
+const repoOwner = "codetrybe";
+const repoName = "git-and-github";
+const docsFolder = "docs";
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${docsFolder}`;
+const fileList = document.getElementById("fileList");
 
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        data.forEach(item => {
-          if (item.type === "file" && item.name.endsWith(".md")) {
-            const fileName = item.name.slice(0, -3);
-            const fileLink = `https://${repoOwner}.github.io/${repoName}/${fileName}`;
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-            a.textContent = fileName;
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(item => {
+      if (item.type === "file" && item.name.endsWith(".md")) {
+        const fileName = item.name.slice(0, -3);
+        const fileLink = `https://${repoOwner}.github.io/${repoName}/${fileName}`;
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+
+        // Fetch the markdown file and use the first h1 tag or # as the link text
+        fetch(item.download_url)
+          .then(response => response.text())
+          .then(markdown => {
+            const linkText = markdown.match(/^# (.+)/m)?.[1] || fileName;
+            a.textContent = linkText;
             a.href = fileLink;
             li.appendChild(a);
             fileList.appendChild(li);
-          }
-        });
-      })
-      .catch(error => console.error(error));
+          })
+          .catch(error => console.error(error));
+      }
+    });
+  })
+  .catch(error => console.error(error));
+
   </script>
 </body>
 </html>
